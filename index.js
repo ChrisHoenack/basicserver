@@ -5,8 +5,8 @@ import path from 'path';
 import { FileServer } from './fileserver.js';
 
 // I'm using a cloud9 server. Change port to 3000 or desired port to run locally
-const fileServer = new FileServer();
 const port = process.env.PORT;
+const fileServer = new FileServer();
 
 // Handle 404
 function pageNotFound(request, response) {
