@@ -2,11 +2,10 @@ import http from 'http';
 import fs from 'fs';
 import url from 'url';
 import path from 'path';
-import { FileServer } from './fileserver.js';
+import { doesFileExist } from './filehelper';
 
 // I'm using a cloud9 server. Change port to 3000 or desired port to run locally
 const port = process.env.PORT;
-const fileServer = new FileServer();
 
 // Handle 404
 function pageNotFound(request, response) {
@@ -21,7 +20,7 @@ function onRequest(request, response) {
     if (request.method === 'GET' && request.url === '/') {
         response.writeHead(200, { 'Context-Type': 'text/html' });
         fs.createReadStream('./src/index.html').pipe(response);
-    } else if (fileServer.doesFileExist(filePath)) {
+    } else if (doesFileExist(filePath)) {
         response.writeHead(200, { 'Context-Type': 'text/html' });
         fs.createReadStream(filePath).pipe(response);
     } else {
